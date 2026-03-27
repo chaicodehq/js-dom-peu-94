@@ -62,12 +62,71 @@
  */
 export function createSweetItem(name, price, category) {
   // Your code here
+  const isValidName = typeof name === "string" && name.trim() !== "";
+  const isValidPrice = typeof price === "number" && !isNaN(price);
+  const isValidCategory =
+    typeof category === "string" && category.trim() !== "";
+
+  if (!isValidName || !isValidPrice || !isValidCategory) {
+    return null;
+  }
+  const itemDiv = document.createElement("div");
+  itemDiv.classList.add("sweet-item");
+
+  const nameElement = document.createElement("h3");
+  nameElement.textContent = name;
+
+  const priceElement = document.createElement("p");
+  priceElement.classList.add("price");
+  priceElement.textContent = "₹${price}";
+
+  const categoryElement = document.createElement("span");
+  categoryElement.classList.add("category");
+  categoryElement.textContent = category;
+
+  itemDiv.appendChild(nameElement);
+  itemDiv.appendChild(priceElement);
+  itemDiv.appendChild(categoryElement);
+
+  return itemDiv;
+}
+const mySweet = createSweetItem("Gulab Jamun", 50, "Dessert");
+
+if (mySweet) {
+  document.getElementById("menu-container").appendChild(mySweet);
+} else {
+  console.error("Failed to create sweet item: Invalid parameters.");
 }
 
 export function buildMenuBoard(sweets) {
   // Your code here
+  if (!Array.isArray(sweets)) {
+    return null;
+  }
+  const menuBoard = document.createElement("div");
+  menuBoard.id = "menu-board";
+
+  sweets.forEach((sweet) => {
+    const sweetItem = createSweetItem(sweet);
+    menuBoard.appendChild(sweetItem);
+  });
+  return menuBoard;
 }
 
 export function addSpecialBadge(sweetElement, badgeText) {
   // Your code here
+  if (
+    (sweetElement === null && sweetElement === undefined) ||
+    (badgeText !== "String" && badgeText === "")
+  ) {
+    return null;
+  }
+
+  const badge = document.createElement("span");
+  badge.className = "special - badge";
+
+  badge.textContent = badgeText;
+  sweetElement.appendChild(badge);
+
+  return sweetElement;
 }
