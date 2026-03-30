@@ -66,16 +66,52 @@
  */
 export function updateChaiPrice(document, chaiType, newPrice) {
   // Your code here
+  if ((typeof newPrice !== "number" && newPrice < 0) || chaiType === "") {
+    return false;
+  }
+  const chaiType = document.getElementById("price-{chaiType}");
+  chaiType.textContent = newPrice;
+
+  if (chaiType) {
+    console.log("element exists");
+    chaiType.textContent = "I found the element";
+  } else {
+    return false;
+  }
 }
 
 export function getChaiPrice(document, chaiType) {
   // Your code here
+  const elementId = "price-{chaiType}";
+
+  const priceElement = document.getElementById(elementId);
+  if (!priceElement) {
+    return null;
+  }
+  const priceText = priceElement.textContent;
+
+  const numericValue = parseFloat(priceText.replace("₹", ""));
+
+  return isNaN(numericValue) ? null : numericValue;
 }
 
 export function updateStallName(document, newName) {
   // Your code here
+  if (typeof newName !== "string" || newName.trim() === "") {
+    return null;
+  }
+  const stallName = document.querySelector(".stall-name");
+
+  if (!nameElement) {
+    return null;
+  }
+  const oldName = nameElement.textContent;
+  stallName.textContent = newName;
+
+  return oldName;
 }
 
 export function highlightCheapestChai(document) {
   // Your code here
+  
 }
